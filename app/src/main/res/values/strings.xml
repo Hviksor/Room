@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Room</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="delete">Delete</string>
+    <string name="description">Description</string>
+    <string name="detail_title">Title</string>
+    <string name="back">Back</string>
+    <string name="title_note">Введдите название заметки</string>
+    <string name="note_desc">Введите текст заметки</string>
+    <string name="save">Save</string>
+    <string name="add_note">Add Note</string>
+</resources>
