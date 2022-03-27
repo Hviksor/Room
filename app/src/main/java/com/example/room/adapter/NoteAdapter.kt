@@ -1,6 +1,7 @@
 package com.example.room.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.room.R
 import com.example.room.databinding.ItemLayoutBinding
 import com.example.room.model.NoteModel
+import com.example.room.screens.start.StartFragment
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     private val listAd = ArrayList<NoteModel>()
@@ -18,6 +20,8 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+        val note = listAd[position]
+        holder.setData(note)
     }
 
     override fun getItemCount(): Int {
@@ -27,15 +31,28 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemLayoutBinding.bind(itemView)
-        fun setData(item: NoteModel) {
-            binding.itemTitle.text = item.title
+        fun setData(note: NoteModel) {
+            Log.e("koko", "${note.description}")
+            binding.itemTitle.text = note.title
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateAdapter(newlists: ArrayList<NoteModel>) {
+    fun updateAdapter(newlists: List<NoteModel>) {
         listAd.clear()
         listAd.addAll(newlists)
         notifyDataSetChanged()
+    }
+
+    override fun onViewAttachedToWindow(holder: NoteViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        holder.itemView.setOnClickListener {
+            StartFragment.clickNote(listAd[holder.adapterPosition])
+        }
+
+    }
+
+    override fun onViewDetachedFromWindow(holder: NoteViewHolder) {
+        holder.itemView.setOnClickListener(null)
     }
 }
