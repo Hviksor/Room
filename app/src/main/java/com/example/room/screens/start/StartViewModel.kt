@@ -1,6 +1,23 @@
 package com.example.room.screens.start
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.room.REPO
+import com.example.room.db.NoteDataBase
+import com.example.room.db.repository.NoteRealization
+import com.example.room.model.NoteModel
 
-class StartViewModel: ViewModel() {
+class StartViewModel(application: Application) : AndroidViewModel(application) {
+    val context = application
+    fun getDB() {
+        val dao = NoteDataBase.getInstance(context).getDao()
+        REPO = NoteRealization(dao)
+    }
+
+    fun getAllNotes(): LiveData<List<NoteModel>> {
+        return REPO.allNoteModel
+    }
+
 }
